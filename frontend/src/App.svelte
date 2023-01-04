@@ -1,20 +1,14 @@
 <script lang="ts">
   import logo from './assets/images/logo-universal.png'
-  import {Greet, TestAPI, UpdateAPIkey} from '../wailsjs/go/main/App.js'
+  import {Greet, TestAPI} from '../wailsjs/go/main/App.js'
 
   let resultText: string = "Please enter your name below 👇"
   let name: string
 
-  let APIKey: string
   let queryResult: string = "Placeholder"
 
   function greet(): void {
     Greet(name).then(result => resultText = result)
-  }
-
-  function updateAPIKey(key: string) {
-    UpdateAPIkey(key)
-    testAPI("Bee Movie")
   }
 
   function testAPI(query: string) {
@@ -29,10 +23,6 @@
   <div class="input-box" id="input">
     <input autocomplete="off" bind:value={name} class="input shadow-sm text-black" id="name" type="text"/>
     <button class="btn" on:click={greet}>Greet</button>
-  </div>
-  <div class="py-5 px-5" id="api_input">
-    <input autocomplete="off" bind:value={APIKey} class="input shadow-sm text-black" id="api_key" type="text"/>
-    <button class="btn rounded-lg hover:bg-sky-900 p-1" on:click={testAPI(APIKey)}>Change API Key</button>
   </div>
   <h3>{queryResult}</h3>
 </main>
