@@ -2,6 +2,9 @@
     import {SearchMovies} from '../wailsjs/go/modules/SearchStruct.js'
     import MovieCard from './MovieCard.svelte';
     import {modules} from "../wailsjs/go/models";
+    
+    // Icons
+    import Icon from '@iconify/svelte';
 
     async function searchMovies(query: string) {
         var options: modules.SearchMoviesOptions = {
@@ -24,7 +27,7 @@
     <div class="row py-3">
         <div class="col-12">
             <input type="text text-red-200" bind:value={searchText} />
-            <button on:click={() => searchMovies(searchText)} class="text-white ring-2 rounded-md p-1">Search</button>
+            <button on:click={() => searchMovies(searchText)} class="text-white ring-2 rounded-md p-1"><Icon icon="material-symbols:search"/></button>
         </div>
     </div>
 
