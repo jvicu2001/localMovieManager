@@ -3,9 +3,12 @@ package main
 import (
 	"context"
 	"embed"
+	"fmt"
+	"localMovieManager/pkg/modules"
+	"os"
+
 	"github.com/joho/godotenv"
 	"github.com/ryanbradynd05/go-tmdb"
-	"localMovieManager/pkg/modules"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -17,7 +20,7 @@ var assets embed.FS
 
 func main() {
 	// Global TMDb object
-	var tmbdAPI *tmdb.TMDb
+	var tmdbAPI *tmdb.TMDb
 
 	// Load .env file
 	err := godotenv.Load()
@@ -25,10 +28,18 @@ func main() {
 		panic("Error loading .env file")
 	}
 
+	// Init TMDb object
+	tmdbAPI = tmdb.Init(tmdb.Config{
+		APIKey:   os.Getenv("TMDB_API_KEY"),
+		UseProxy: false,
+		Proxies:  nil,
+	})
+	fmt.Printf("API_KEY: %s\n", os.Getenv("TMDB_API_KEY"))
+
 	// Create an instance of the app structure
 	// Pass the TMDB object to everyone
-	app := NewApp(tmbdAPI)
-	search := modules.NewSearch(tmbdAPI)
+	app := NewApp(tmdbAPI)
+	search := modules.NewSearchStruct(tmdbAPI)
 
 	// Create application with options
 	err = wails.Run(&options.App{

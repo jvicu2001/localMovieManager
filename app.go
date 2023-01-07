@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/ryanbradynd05/go-tmdb"
-	"os"
 )
 
 // App struct
@@ -24,14 +24,6 @@ func NewApp(tmdbAPI *tmdb.TMDb) *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-
-	// Initialize TMDb object
-	a.tmdbAPI = tmdb.Init(tmdb.Config{
-		APIKey:   os.Getenv("TMDB_API_KEY"),
-		UseProxy: false,
-		Proxies:  nil,
-	})
-	fmt.Printf("API_KEY: %s\n", os.Getenv("TMDB_API_KEY"))
 }
 
 // Greet returns a greeting for the given name
