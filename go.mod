@@ -3,7 +3,6 @@ module localMovieManager
 go 1.18
 
 require (
-	github.com/joho/godotenv v1.4.0
 	github.com/ryanbradynd05/go-tmdb v0.0.0-20220721194547-2ab6191c6273
 	github.com/wailsapp/wails/v2 v2.3.1
 )
