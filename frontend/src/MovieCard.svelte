@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="relative bg-cover overflow-hidden rounded-lg max-w-sm backdrop-filter hover:backdrop-blur-sm outline-dotted outline-2 outline-offset-2">
+<div class="relative bg-cover overflow-hidden rounded-lg max-w-sm">
     <img src={
         poster_path ? "https://image.tmdb.org/t/p/w500" + poster_path : "https://via.placeholder.com/500x750"
     } alt="" class="inset-0 w-full h-full object-cover" />
