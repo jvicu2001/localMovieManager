@@ -39,6 +39,20 @@
         </div>
     </div>
 
+    <!-- Pagination -->
+    {#if queryResult}
+    <div class="row py-3">
+        <div class="col-12">
+            <Pagination
+                currentPage = {queryResult["Page"]}
+                totalPages = {queryResult["total_pages"]}
+                searchText = {searchText}
+                searchMovies = {searchMovies}
+            />
+        </div>
+    </div>
+    {/if}
+
     <div class="row">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 px-4">
             {#each queryMovies as movie}
