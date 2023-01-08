@@ -16,7 +16,7 @@
 
 </script>
 
-<div class="relative bg-cover overflow-hidden rounded-lg max-w-sm transform hover:scale-110 ease-in-out duration-75 hover:z-50 hover:shadow-md">
+<div class="relative bg-cover overflow-hidden rounded-lg max-w-sm transform hover:scale-110 ease-in-out duration-75 hover:z-20 hover:shadow-md">
     <img src={
         poster_path ? "https://image.tmdb.org/t/p/w500" + poster_path : "https://via.placeholder.com/500x750"
     } alt="" class="inset-0 w-full h-full object-cover" />
