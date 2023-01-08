@@ -1,17 +1,25 @@
 <script lang="ts">
     import {SearchMovies} from '../wailsjs/go/modules/SearchStruct.js'
     import MovieCard from './MovieCard.svelte';
-    import {modules} from "../wailsjs/go/models";
+    import type {modules} from "../wailsjs/go/models";
     
     // Icons
     import Icon from '@iconify/svelte';
+    
+    import Pagination from './Pagination.svelte';
 
-    async function searchMovies(query: string) {
+    async function searchMovies(
+        query: string,
+        page: number = 1,
+        include_adult: boolean = false,
+        region: string = "US",
+        language: string = "en-US"
+    ) {
         var options: modules.SearchMoviesOptions = {
-            page: 1,
-            include_adult: false,
-            region: "US",
-            language: "en-US",
+            page: page,
+            include_adult: include_adult,
+            region: region,
+            language: language,
         }
         let unmarshalledJson: string = await SearchMovies(query,options)
         queryResult = JSON.parse(unmarshalledJson)
@@ -34,8 +42,36 @@
     <div class="row">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 px-4">
             {#each queryMovies as movie}
-                <MovieCard {...movie}/>
+                <MovieCard
+                    adult = {movie["adult"]}
+                    backdrop_path = {movie["backdrop_path"]}
+                    id = {movie["id"]}
+                    original_title = {movie["original_title"]}
+                    genre_ids = {movie["genre_ids"]}
+                    popularity = {movie["popularity"]}
+                    poster_path = {movie["poster_path"]}
+                    release_date = {movie["release_date"]}
+                    title = {movie["title"]}
+                    overview = {movie["overview"]}
+                    video = {movie["video"]}
+                    vote_average = {movie["vote_average"]}
+                    vote_count = {movie["vote_count"]}
+                />
             {/each}
         </div>
     </div>
+
+    <!-- Pagination -->
+    {#if queryResult}
+    <div class="row py-3">
+        <div class="col-12">
+            <Pagination
+                currentPage = {queryResult["Page"]}
+                totalPages = {queryResult["total_pages"]}
+                searchText = {searchText}
+                searchMovies = {searchMovies}
+            />
+        </div>
+    </div>
+    {/if}
 </div>
