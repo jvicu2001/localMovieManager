@@ -58,25 +58,12 @@ func searchMoviesOptionsToMap(options SearchMoviesOptions, result *map[string]st
 		panic(err)
 	}
 
-	//fmt.Printf("TEST: MarshalledOptions: %s\nUnmarshalled: %s\n", jsonBytes, temp)
-
 	for s, i := range temp {
 		if i != nil {
-			//fmt.Printf("%s %v\n", s, i)
 			(*result)[s] = fmt.Sprintf("%v", i)
 		}
 
 	}
-
-	//fmt.Printf("Result: %v\n", result)
-	/*v := reflect.ValueOf(options)
-	for i := 0; i < v.NumField(); i++ {
-		if v.Field(i).IsNil() {
-			continue
-		}
-		result[v.Type().Field(i).Name] = v.Field(i).String()
-	}
-	return result*/
 }
 
 func (a *SearchStruct) SearchTV(query string, options SearchTVOptions) string {
@@ -106,8 +93,6 @@ func searchTVOptionsToMap(options SearchTVOptions, result *map[string]string) {
 		panic(err)
 	}
 
-	//fmt.Printf("TEST: MarshalledOptions: %s\nUnmarshalled: %s\n", jsonBytes, temp)
-
 	for s, i := range temp {
 		if i != nil {
 			//fmt.Printf("%s %v\n", s, i)
@@ -115,15 +100,39 @@ func searchTVOptionsToMap(options SearchTVOptions, result *map[string]string) {
 		}
 
 	}
+}
 
-	//fmt.Printf("Result: %v\n", result)
-	/*result := make(map[string]string)
-	v := reflect.ValueOf(options)
-	for i := 0; i < v.NumField(); i++ {
-		if v.Field(i).IsNil() {
-			continue
-		}
-		result[v.Type().Field(i).Name] = v.Field(i).String()
+func (a *SearchStruct) SearchPeople(query string, options SearchPeopleOptions) string {
+	optionsMap := make(map[string]string)
+	searchPeopleOptionsToMap(options, &optionsMap)
+	queryResult, _ := a.tmdbAPI.SearchPerson(query, optionsMap)
+	result, _ := tmdb.ToJSON(queryResult)
+	return result
+}
+
+type SearchPeopleOptions struct {
+	Language     *string      `json:"language,omitempty"`
+	Page         *json.Number `json:"page,omitempty"`
+	IncludeAdult *bool        `json:"include_adult,omitempty"`
+	Region       *string      `json:"region,omitempty"`
+}
+
+func searchPeopleOptionsToMap(options SearchPeopleOptions, result *map[string]string) {
+	temp := make(map[string]interface{})
+
+	// Convert the struct to JSON
+	jsonBytes, _ := json.Marshal(options)
+
+	// Convert the JSON to a map
+	err := json.Unmarshal(jsonBytes, &temp)
+	if err != nil {
+		panic(err)
 	}
-	return result*/
+
+	for s, i := range temp {
+		if i != nil {
+			(*result)[s] = fmt.Sprintf("%v", i)
+		}
+
+	}
 }
