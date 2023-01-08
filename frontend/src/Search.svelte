@@ -163,7 +163,7 @@
                 <input
                     type="text"
                     class="w-1/2 p-2 rounded-md"
-                    placeholder="Search for a movie..."
+                    placeholder="Search for {activeSearchType}..."
                     bind:value={searchText}
                     on:keydown={async (e) => {
                         if (e.key === "Enter") {
