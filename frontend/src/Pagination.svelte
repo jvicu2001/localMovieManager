@@ -10,7 +10,6 @@
 </script>
 
 <div class="flex justify-center">
-    <p>Current Page: {currentPage}</p>
     {#if currentPage > 1}
         <button class="text-white ring-2 rounded-md w-10 p-2" on:click={() => searchMovies(searchText, 1)}>
             <Icon icon="material-symbols:first-page" class="mx-auto"/>
