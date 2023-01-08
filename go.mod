@@ -3,7 +3,7 @@ module localMovieManager
 go 1.18
 
 require (
-	github.com/ryanbradynd05/go-tmdb v0.0.0-20220721194547-2ab6191c6273
+	github.com/ryanbradynd05/go-tmdb v0.0.0-20230108222638-2a68dc6ff40c
 	github.com/wailsapp/wails/v2 v2.3.1
 )
 
